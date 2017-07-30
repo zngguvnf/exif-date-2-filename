@@ -5,12 +5,13 @@ import exifread
 
 def convert_timestamp(ExifTime):
     # converts Exif Timestamp '2015:12:27 09:43:44'
-    # To ISO like Timestamp   '2015-12-27T09-43-44'
+    # To ISO like Timestamp   '2015-12-27T09.43.44'
     # attrs = dir(ExifTime)
     values = getattr(ExifTime, 'values')
     # values = '2015:12:27 09:43:44'
-    timestamp = values.replace(' ', 'T')
-    timestamp = timestamp.replace(':', '-')
+    date = values[:10].replace(':', '-')
+    time = values[11:].replace(':', '.')
+    timestamp = date + 'T' + time
     return timestamp
 
 
@@ -36,6 +37,7 @@ def rename_pictures(source='testfiles/source'):
                             + file, destination
                             + '/' + timestamp
                             + '--' + filename
+                            + '__'
                             + extension)
             else:
                 print('no EXIF Data found for %s' % file)
