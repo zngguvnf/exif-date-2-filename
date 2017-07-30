@@ -14,14 +14,18 @@ def convert_timestamp(ExifTime):
     return timestamp
 
 
-def rename_pictures(source='testfiles/source',
-                    destination='testfiles/destination'):
+# def rename_pictures(source='testfiles/source',
+#                     destination='testfiles/destination'):
+def rename_pictures(source='testfiles/source'):
+    destination=source
 
-    for filename in os.listdir(source):
-        if filename != '.DS_Store':
-            extension = os.path.splitext(filename)[1]
+    for file in os.listdir(source):
+        if file != '.DS_Store':
 
-            f = open(source+'/'+filename, 'rb')
+            filename = os.path.splitext(file)[0] 
+            extension = os.path.splitext(file)[1]
+
+            f = open(source+'/'+file, 'rb')
             tags = exifread.process_file(f)
 
             if 'EXIF DateTimeOriginal' in tags.keys():
@@ -29,10 +33,17 @@ def rename_pictures(source='testfiles/source',
                 timestamp = convert_timestamp(ExifTime)
 
                 shutil.copy(source + '/'
-                            + filename, destination
-                            + '/' + timestamp + extension)
+                            + file, destination
+                            + '/' + timestamp
+                            + '--' + filename
+                            + extension)
             else:
-                print('no EXIF Data found for %s' % filename)
+                print('no EXIF Data found for %s' % file)
+                shutil.copy(source + '/'
+                            + file, destination
+                            + '/' + filename
+                            + '__' + 'noexif'
+                            + extension)
 
 
 if __name__ == "__main__":
@@ -41,7 +52,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Create a ArcHydro schema')
     parser.add_argument('--source', metavar='path', required=True,
                         help='path to source folder')
-    parser.add_argument('--destination', metavar='path', required=True,
-                        help='path to destination folder')
+    # parser.add_argument('--destination', metavar='path', required=True,
+    #                     help='path to destination folder')
     args = parser.parse_args()
-    rename_pictures(source=args.source, destination=args.destination)
+    # rename_pictures(source=args.source, destination=args.destination)
+    rename_pictures(source=args.source)
