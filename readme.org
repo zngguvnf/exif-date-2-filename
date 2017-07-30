@@ -1,0 +1,8 @@
+Scripts extract date and location from exifinformaiton and save it to filename.
+
+Setup:
+#+BEGIN_SRC shell
+pyenv virtualenv 3.6.1 rename-pictures
+pyenv activate rename-pictures
+pip install -r requirements.txt
+#+END_SRC
