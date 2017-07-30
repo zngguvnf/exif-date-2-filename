@@ -6,7 +6,7 @@ import exifread
 def convert_timestamp(ExifTime):
     # converts Exif Timestamp '2015:12:27 09:43:44'
     # To ISO like Timestamp   '2015-12-27T09-43-44'
-    #attrs = dir(ExifTime)
+    # attrs = dir(ExifTime)
     values = getattr(ExifTime, 'values')
     # values = '2015:12:27 09:43:44'
     timestamp = values.replace(' ', 'T')
@@ -14,8 +14,8 @@ def convert_timestamp(ExifTime):
     return timestamp
 
 
-def rename_pictures(source='htc-desire',
-                    destination='htc-desire_out'):
+def rename_pictures(source='testfiles/source',
+                    destination='testfiles/destination'):
 
     for filename in os.listdir(source):
         if filename != '.DS_Store':
@@ -34,5 +34,14 @@ def rename_pictures(source='htc-desire',
             else:
                 print('no EXIF Data found for %s' % filename)
 
+
 if __name__ == "__main__":
-    rename_pictures()
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Create a ArcHydro schema')
+    parser.add_argument('--source', metavar='path', required=True,
+                        help='path to source folder')
+    parser.add_argument('--destination', metavar='path', required=True,
+                        help='path to destination folder')
+    args = parser.parse_args()
+    rename_pictures(source=args.source, destination=args.destination)
