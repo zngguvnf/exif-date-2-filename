@@ -1,8 +1,13 @@
-Scripts extract date and location from exifinformaiton and save it to filename.
+Extract date from exif-informaiton and save it to filename.
 
 Setup:
 #+BEGIN_SRC shell
-pyenv virtualenv 3.6.1 rename-pictures
-pyenv activate rename-pictures
+pyenv virtualenv 3.6.1 exif-date-2-filename
+pyenv activate exif-date-2-filename
 pip install -r requirements.txt
+#+END_SRC
+
+Usage:
+#+BEGIN_SRC shell
+python exif-date2-filename --source='/path/to/pictures/'
 #+END_SRC
