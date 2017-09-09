@@ -1,4 +1,10 @@
-Extract date from exif-informaiton and save it to filename.
+This script extracts the exif timestamp of a picture and saves the picture will
+a new filename.
+
+The new filename will look like this:
+2011-12-17T23.29.21--IMAG0422__.jpg
+
+where IMAG0422 was the original filename.
 
 Setup:
 #+BEGIN_SRC shell
